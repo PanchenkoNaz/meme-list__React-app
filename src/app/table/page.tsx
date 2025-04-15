@@ -14,19 +14,19 @@ const initialMemes: Meme[] = [
   {
     id: 1,
     title: 'Distracted Boyfriend',
-    image: 'https://i.imgur.com/Jg2tV.jpg',
+    image: 'https://api.memegen.link/images/distracted-boyfriend/you/me.jpg',
     likes: 42,
   },
   {
     id: 2,
     title: 'Drake Hotline Bling',
-    image: 'https://i.imgur.com/NUNLHPZ.jpg',
+    image: 'https://api.memegen.link/images/drake/prefer/this.jpg',
     likes: 35,
   },
   {
     id: 3,
     title: 'Grumpy Cat',
-    image: 'https://i.imgur.com/MZ3sK3v.jpg',
+    image: 'https://api.memegen.link/images/grumpy/I_had_fun_once/It_was_awful.jpg',
     likes: 58,
   },
 ];

@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 type Meme = {
   id: number;
   title: string;
@@ -13,19 +11,19 @@ const memes: Meme[] = [
   {
     id: 1,
     title: 'Distracted Boyfriend',
-    image: 'https://upload.wikimedia.org/wikipedia/en/e/ec/Distracted_boyfriend.jpg',
+    image: 'https://api.memegen.link/images/distracted-boyfriend/you/me.jpg',
     likes: 42,
   },
   {
     id: 2,
     title: 'Drake Hotline Bling',
-    image: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Drake_Hotline_Bling.jpg',
+    image: 'https://api.memegen.link/images/drake/prefer/this.jpg',
     likes: 35,
   },
   {
     id: 3,
     title: 'Grumpy Cat',
-    image: 'https://upload.wikimedia.org/wikipedia/en/8/89/Grumpy_Cat_by_Gage_Skidmore.jpg',
+    image: 'https://api.memegen.link/images/grumpy/I_had_fun_once/It_was_awful.jpg',
     likes: 58,
   },
 ];
@@ -40,11 +38,10 @@ const ListPage = () => {
             key={meme.id}
             className="border rounded-lg shadow p-4 hover:shadow-md transition"
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={meme.image}
               alt={meme.title}
-              width={300}
-              height={200}
               className="w-full h-40 object-cover rounded mb-2"
             />
             <h2 className="text-lg font-semibold">{meme.title}</h2>

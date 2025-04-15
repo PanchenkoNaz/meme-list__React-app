@@ -45,6 +45,7 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter meme title"
                 className="w-full border px-3 py-2 rounded"
               />
             </div>
@@ -55,6 +56,7 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
                 type="text"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+                placeholder="Enter meme title"
                 className="w-full border px-3 py-2 rounded"
               />
             </div>
@@ -65,6 +67,7 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
                 type="number"
                 value={likes}
                 onChange={(e) => setLikes(Number(e.target.value))}
+                placeholder="Enter meme title"
                 className="w-full border px-3 py-2 rounded"
               />
             </div>

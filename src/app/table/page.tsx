@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import EditMemeModal from '../../components/EditMemeModal';
 
 type Meme = {
   id: number;
@@ -32,6 +33,7 @@ const initialMemes: Meme[] = [
 
 const TablePage = () => {
   const [memes, setMemes] = useState(initialMemes);
+  const [selectedMeme, setSelectedMeme] = useState<Meme | null>(null);
 
   return (
     <div className="p-4">
@@ -52,12 +54,30 @@ const TablePage = () => {
               <td className="border px-4 py-2">{meme.title}</td>
               <td className="border px-4 py-2">{meme.likes}</td>
               <td className="border px-4 py-2">
-                <button className="text-blue-600 hover:underline">Edit</button>
+                <button
+                  className="text-blue-600 hover:underline"
+                  onClick={() => setSelectedMeme(meme)}
+                >
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {selectedMeme && (
+        <EditMemeModal
+          isOpen={!!selectedMeme}
+          onClose={() => setSelectedMeme(null)}
+          meme={selectedMeme}
+          onSave={(updated) => {
+            setMemes((prev) =>
+              prev.map((m) => (m.id === updated.id ? updated : m))
+            );
+          }}
+        />
+      )}
     </div>
   );
 };

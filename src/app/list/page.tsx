@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 type Meme = {
@@ -10,7 +10,7 @@ type Meme = {
   likes: number;
 };
 
-const memes: Meme[] = [
+const initialMemes: Meme[] = [
   {
     id: 1,
     title: 'Distracted Boyfriend',
@@ -74,6 +74,18 @@ const memes: Meme[] = [
 ];
 
 export default function ListPage() {
+  const [memes, setMemes] = useState<Meme[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('memes');
+    if (stored) {
+      setMemes(JSON.parse(stored));
+    } else {
+      setMemes(initialMemes);
+      localStorage.setItem('memes', JSON.stringify(initialMemes));
+    }
+  }, []);
+
   return (
     <div className="p-4">
       <h1 className="text-xl font-semibold mb-4">Meme List</h1>

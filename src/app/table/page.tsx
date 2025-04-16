@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditMemeModal from '../../components/EditMemeModal';
 
 type Meme = {
@@ -74,13 +74,24 @@ const initialMemes: Meme[] = [
 ];
 
 export default function TablePage() {
-  const [memes, setMemes] = useState(initialMemes);
+  const [memes, setMemes] = useState<Meme[]>([]);
   const [selectedMeme, setSelectedMeme] = useState<Meme | null>(null);
 
+  // Завантаження з localStorage або fallback
+  useEffect(() => {
+    const stored = localStorage.getItem('memes');
+    if (stored) {
+      setMemes(JSON.parse(stored));
+    } else {
+      setMemes(initialMemes);
+      localStorage.setItem('memes', JSON.stringify(initialMemes));
+    }
+  }, []);
+
   const handleSave = (updated: Meme) => {
-    setMemes((prev) =>
-      prev.map((m) => (m.id === updated.id ? updated : m))
-    );
+    const updatedList = memes.map((m) => (m.id === updated.id ? updated : m));
+    setMemes(updatedList);
+    localStorage.setItem('memes', JSON.stringify(updatedList));
     setSelectedMeme(null);
   };
 

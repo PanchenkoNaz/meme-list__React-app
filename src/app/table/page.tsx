@@ -77,7 +77,6 @@ export default function TablePage() {
   const [memes, setMemes] = useState<Meme[]>([]);
   const [selectedMeme, setSelectedMeme] = useState<Meme | null>(null);
 
-  // Завантаження з localStorage або fallback
   useEffect(() => {
     const stored = localStorage.getItem('memes');
     if (stored) {
@@ -96,35 +95,37 @@ export default function TablePage() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-semibold mb-4">Meme Table</h1>
-      <table className="w-full table-auto border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left">ID</th>
-            <th className="border px-4 py-2 text-left">Title</th>
-            <th className="border px-4 py-2 text-left">Likes</th>
-            <th className="border px-4 py-2 text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {memes.map((meme) => (
-            <tr key={meme.id}>
-              <td className="border px-4 py-2">{meme.id}</td>
-              <td className="border px-4 py-2">{meme.title}</td>
-              <td className="border px-4 py-2">{meme.likes}</td>
-              <td className="border px-4 py-2">
-                <button
-                  className="text-blue-600 hover:underline"
-                  onClick={() => setSelectedMeme(meme)}
-                >
-                  Edit
-                </button>
-              </td>
+    <div className="min-h-screen bg-zinc-900 text-white p-6">
+      <h1 className="text-2xl font-bold mb-6 text-center">Meme Table</h1>
+      <div className="overflow-x-auto rounded-lg shadow">
+        <table className="w-full text-sm text-left border border-zinc-700">
+          <thead className="bg-zinc-800 text-zinc-200">
+            <tr>
+              <th className="px-4 py-3 border border-zinc-700">ID</th>
+              <th className="px-4 py-3 border border-zinc-700">Title</th>
+              <th className="px-4 py-3 border border-zinc-700">Likes</th>
+              <th className="px-4 py-3 border border-zinc-700 text-right">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {memes.map((meme) => (
+              <tr key={meme.id} className="hover:bg-zinc-800">
+                <td className="px-4 py-2 border border-zinc-700">{meme.id}</td>
+                <td className="px-4 py-2 border border-zinc-700">{meme.title}</td>
+                <td className="px-4 py-2 border border-zinc-700">{meme.likes}</td>
+                <td className="px-4 py-2 border border-zinc-700 text-right">
+                  <button
+                    className="text-blue-400 hover:text-blue-500 font-medium"
+                    onClick={() => setSelectedMeme(meme)}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {selectedMeme && (
         <EditMemeModal

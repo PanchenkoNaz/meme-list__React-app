@@ -12,16 +12,15 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="flex gap-4 p-4 bg-gray-100 border-b border-gray-300">
+    <nav className="flex items-center gap-4 p-4 bg-zinc-950 text-white border-b border-zinc-800">
       {links.map((link) => (
         <Link
           key={link.href}
           href={link.href}
-          className={`px-3 py-2 rounded ${
-            pathname === link.href
+          className={`px-4 py-2 rounded-md text-sm transition font-medium
+            ${pathname === link.href
               ? 'bg-blue-600 text-white'
-              : 'text-blue-600 hover:bg-blue-100'
-          }`}
+              : 'text-zinc-300 hover:text-white hover:bg-zinc-800'}`}
         >
           {link.label}
         </Link>

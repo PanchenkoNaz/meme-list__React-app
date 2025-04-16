@@ -24,7 +24,7 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
 
   const handleSave = () => {
     if (title.length < 3 || title.length > 100) return alert('Title must be 3-100 chars');
-    if (!image.endsWith('.jpg')) return alert('Image must be a JPG URL');
+    if (!image.match(/^https?:\/\/.*\.(jpg|jpeg)$/i)) return alert('Image must be a valid JPG URL');
     if (likes < 0 || likes > 99) return alert('Likes must be 0-99');
 
     onSave({ ...meme, title, image, likes });
@@ -32,51 +32,58 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-10">
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+    <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50">
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="bg-white p-6 rounded shadow max-w-md w-full">
-          <Dialog.Title className="text-lg font-bold mb-4">Edit Meme</Dialog.Title>
+        <Dialog.Panel className="bg-zinc-900 text-white p-6 rounded-xl shadow-xl w-full max-w-md">
+          <Dialog.Title className="text-xl font-semibold mb-6 text-center">Edit Meme</Dialog.Title>
 
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium">Title</label>
+              <label className="block text-sm mb-1">Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter meme title"
-                className="w-full border px-3 py-2 rounded"
+                placeholder="Meme title"
+                className="w-full px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium">Image URL (.jpg)</label>
+              <label className="block text-sm mb-1">Image URL (.jpg)</label>
               <input
                 type="text"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
-                placeholder="Enter meme title"
-                className="w-full border px-3 py-2 rounded"
+                placeholder="https://...jpg"
+                className="w-full px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium">Likes (0-99)</label>
+              <label className="block text-sm mb-1">Likes (0–99)</label>
               <input
                 type="number"
+                min={0}
+                max={99}
                 value={likes}
                 onChange={(e) => setLikes(Number(e.target.value))}
-                placeholder="Enter meme title"
-                className="w-full border px-3 py-2 rounded"
+                className="w-full px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            <div className="flex justify-end gap-2 mt-4">
-              <button onClick={onClose} className="px-4 py-2 bg-gray-200 rounded">
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                onClick={onClose}
+                className="px-4 py-2 rounded bg-zinc-700 text-sm hover:bg-zinc-600 transition"
+              >
                 Cancel
               </button>
-              <button onClick={handleSave} className="px-4 py-2 bg-blue-600 text-white rounded">
+              <button
+                onClick={handleSave}
+                className="px-4 py-2 rounded bg-blue-600 text-white text-sm hover:bg-blue-500 transition"
+              >
                 Save
               </button>
             </div>

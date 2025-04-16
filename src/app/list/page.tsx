@@ -87,28 +87,33 @@ export default function ListPage() {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-semibold mb-4">Meme List</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="min-h-screen bg-zinc-900 text-white p-6">
+      <h1 className="text-2xl font-bold mb-6 text-center">Meme List</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {memes.map((meme) => (
-          <div key={meme.id} className="border p-4 rounded shadow-sm">
+          <div
+            key={meme.id}
+            className="bg-zinc-800 rounded-lg shadow hover:shadow-lg transition overflow-hidden border border-zinc-700"
+          >
             <Image
               src={meme.image}
               alt={meme.title}
-              width={300}
-              height={200}
-              className="rounded w-full h-[200px] object-cover mb-2"
+              width={500}
+              height={300}
+              className="w-full h-48 object-cover"
             />
-            <h2 className="font-semibold">{meme.title}</h2>
-            <p className="text-sm text-gray-600">Likes: {meme.likes}</p>
-            <a
-              href={meme.image}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 text-sm underline"
-            >
-              View full image
-            </a>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold mb-1 truncate">{meme.title}</h2>
+              <p className="text-sm text-zinc-400 mb-2">Likes: {meme.likes}</p>
+              <a
+                href={meme.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 text-sm hover:underline"
+              >
+                View full image
+              </a>
+            </div>
           </div>
         ))}
       </div>

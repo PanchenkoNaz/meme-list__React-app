@@ -24,7 +24,7 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
 
   const handleSave = () => {
     if (title.length < 3 || title.length > 100) return alert('Title must be 3-100 chars');
-    if (!image.match(/^https?:\/\/.*\.(jpg|jpeg)$/i)) return alert('Image must be a valid JPG URL');
+    if (!image.endsWith('.jpg')) return alert('Image must be a JPG URL');
     if (likes < 0 || likes > 99) return alert('Likes must be 0-99');
 
     onSave({ ...meme, title, image, likes });
@@ -32,57 +32,65 @@ const EditMemeModal = ({ isOpen, onClose, meme, onSave }: Props) => {
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50">
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true" />
+    <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-10">
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="bg-zinc-900 text-white p-6 rounded-xl shadow-xl w-full max-w-md">
-          <Dialog.Title className="text-xl font-semibold mb-6 text-center">Edit Meme</Dialog.Title>
+        <Dialog.Panel className="bg-zinc-900 text-white p-6 rounded-lg shadow-xl max-w-md w-full border border-zinc-700">
+          <Dialog.Title className="text-xl font-semibold mb-5">Edit Meme</Dialog.Title>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             <div>
-              <label className="block text-sm mb-1">Title</label>
+              <label htmlFor="title" className="block text-sm font-medium mb-1">
+                Title
+              </label>
               <input
+                id="title"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Meme title"
-                className="w-full px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter meme title"
+                className="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm mb-1">Image URL (.jpg)</label>
+              <label htmlFor="image" className="block text-sm font-medium mb-1">
+                Image URL (.jpg)
+              </label>
               <input
+                id="image"
                 type="text"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
-                placeholder="https://...jpg"
-                className="w-full px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="https://..."
+                className="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm mb-1">Likes (0–99)</label>
+              <label htmlFor="likes" className="block text-sm font-medium mb-1">
+                Likes (0–99)
+              </label>
               <input
+                id="likes"
                 type="number"
-                min={0}
-                max={99}
                 value={likes}
                 onChange={(e) => setLikes(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0–99"
+                className="w-full bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            <div className="flex justify-end gap-3 pt-2">
+            <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={onClose}
-                className="px-4 py-2 rounded bg-zinc-700 text-sm hover:bg-zinc-600 transition"
+                className="px-4 py-2 rounded bg-zinc-700 hover:bg-zinc-600 transition text-sm"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 rounded bg-blue-600 text-white text-sm hover:bg-blue-500 transition"
+                className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white transition text-sm"
               >
                 Save
               </button>
